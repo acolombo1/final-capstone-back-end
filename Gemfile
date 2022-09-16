@@ -69,8 +69,8 @@ end
 
 group :test do
   # Testing framework
+  gem 'database_cleaner-active_record'
   gem 'rails-controller-testing'
   gem 'rspec-rails'
   gem 'simplecov', require: false
-  gem 'database_cleaner-active_record'
 end
