@@ -1,0 +1,302 @@
+---
+openapi: 3.0.1
+info:
+  title: Rent-A-Green API
+  version: v1
+paths:
+  "/items":
+    get:
+      summary: list items
+      tags:
+      - Items
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              examples:
+                successful:
+                  value:
+                    code: 200
+                    data:
+                    - id: '1'
+                      type: item
+                      attributes:
+                        id: 1
+                        name: Item 100
+                        description: description 100
+                        range: 100 mi
+                        photo: photo1_url
+    post:
+      summary: create item
+      tags:
+      - Items
+      parameters: []
+      security:
+      - bearerAuth: []
+      responses:
+        '201':
+          description: successful
+          content:
+            application/json:
+              examples:
+                successful:
+                  value:
+                    code: 201
+                    data:
+                      id: 6
+                      name: This is the item's name
+                      description: This is the description
+                      range: 100 mi
+                      photo: http://photo_url
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                range:
+                  type: string
+                photo:
+                  type: string
+              required:
+              - name
+              - description
+              - range
+              - photo
+  "/items/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show item
+      tags:
+      - Items
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              examples:
+                successful:
+                  value:
+                    code: 200
+                    data:
+                      id: 6
+                      name: This is the item's name
+                      description: This is the description
+                      range: 100 mi
+                      photo: http://photo_url
+    delete:
+      summary: delete item
+      tags:
+      - Items
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              examples:
+                successful:
+                  value:
+                    code: 200
+                    data:
+                      message: deleted successfully
+  "/reservations":
+    get:
+      summary: list reservations
+      tags:
+      - Reservations
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              examples:
+                successful:
+                  value:
+                    code: 200
+                    data:
+                    - id: '1'
+                      type: reservation
+                      attributes:
+                        id: 1
+                        user_id: 1
+                        item_id: 1
+                        date: '2022-09-21'
+                        city: Medellin
+    post:
+      summary: create reservation
+      tags:
+      - Reservations
+      parameters: []
+      security:
+      - bearerAuth: []
+      responses:
+        '201':
+          description: successful
+          content:
+            application/json:
+              examples:
+                successful:
+                  value:
+                    code: 201
+                    data:
+                      id: 6
+                      city: City
+                      date: '2022-01-01'
+                      item: Item 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: string
+                  format: date
+                city:
+                  type: string
+                item:
+                  type: string
+              required:
+              - date
+              - city
+              - item
+  "/users/signup":
+    post:
+      summary: new registration
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              examples:
+                successfull_request:
+                  value:
+                    code: 201
+                    data:
+                      message: Signed up succesfully!
+                      user:
+                        id: 1
+                        name: string
+                        email: user@mail.com
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    email:
+                      type: string
+                      pattern: "^\\S+@\\S+\\.\\S+$"
+                      format: email
+                    password:
+                      type: string
+                      format: password
+                  required:
+                  - name
+                  - email
+                  - password
+              required:
+              - user
+  "/users/login":
+    post:
+      summary: create session
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              examples:
+                successfull_login:
+                  value:
+                    code: 200
+                    data:
+                      user:
+                        id: 1
+                        name: User 1
+                        email: user@mail.com
+                      message: Logged in successfully.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      pattern: "^\\S+@\\S+\\.\\S+$"
+                      format: email
+                    password:
+                      type: string
+                      format: password
+                  required:
+                  - email
+                  - password
+  "/users/logout":
+    delete:
+      summary: delete session
+      tags:
+      - Users
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              examples:
+                succesful_logout:
+                  value:
+                    code: 200
+                    data:
+                      message: logged out successfully
+servers:
+- url: https://{herokuapp}
+  variables:
+    herokuapp:
+      default: rent-a-green.herokuapp.com
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3001
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

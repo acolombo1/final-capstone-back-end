@@ -1,0 +1,56 @@
+
+POST http://localhost:3001/users/signup
+Content-Type: application/json
+
+{ "user": { "name": "Aldo", "email": "aldo@mail.com", "password": "valido" } }
+
+###
+POST http://localhost:3001/users/login
+Content-Type: application/json
+
+{ "user": { "email": "roberto@mail.com", "password": "valido" } }
+
+###
+DELETE http://localhost:3001/users/logout
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwic2NwIjoidXNlciIsImF1ZCI6bnVsbCwiaWF0IjoxNjYzNTQ5MjI5LCJleHAiOjE2NjQ4NDUyMjksImp0aSI6IjU3MGQyY2M2LWVlMjgtNDA5Zi05ZDFiLTIxMjFiMTc4YjkwZiJ9.67MBwm8RWRSJX-0XBHWO14yHxP0l37qSrEfDg6KZe2s
+
+###
+
+POST http://localhost:3001/items
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwic2NwIjoidXNlciIsImF1ZCI6bnVsbCwiaWF0IjoxNjYzMzU2Nzk3LCJleHAiOjE2NjQ2NTI3OTcsImp0aSI6IjNiNGM3ZjlkLTc4MTAtNDU3ZC04YzEyLTMwOTE0MDM4ZDU4OCJ9.190O3fkGI0HFf3vtA2XPD9CxZ4Lxk4iGuuJE2TKoQ90
+
+{ "name": "Item Y", "description": "Description Y", "photo": "Photo Y", "range": "Range Y" }
+
+###
+
+GET http://localhost:3001/items
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwic2NwIjoidXNlciIsImF1ZCI6bnVsbCwiaWF0IjoxNjYzMzU2Nzk3LCJleHAiOjE2NjQ2NTI3OTcsImp0aSI6IjNiNGM3ZjlkLTc4MTAtNDU3ZC04YzEyLTMwOTE0MDM4ZDU4OCJ9.190O3fkGI0HFf3vtA2XPD9CxZ4Lxk4iGuuJE2TKoQ90
+
+###
+
+POST http://localhost:3001/items/1/toggle_active
+Content-Type: application/json
+
+###
+
+GET http://localhost:3001/items/1
+Content-Type: application/json
+
+###
+
+GET http://localhost:3001/reservations
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwic2NwIjoidXNlciIsImF1ZCI6bnVsbCwiaWF0IjoxNjY0MDMzMTIzLCJleHAiOjE2NjUzMjkxMjMsImp0aSI6ImNlNjE0ZDVkLWFkZWQtNGUxMC1iZmM5LTI5MDU0OTRjMzMzNiJ9.1w8COxSQcItqvLMkq4zdflwbLpNb-bs4j8BWPD3qE2Q
+
+###
+
+POST http://localhost:3001/reservations
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwic2NwIjoidXNlciIsImF1ZCI6bnVsbCwiaWF0IjoxNjYzNzc5MzQ2LCJleHAiOjE2NjUwNzUzNDYsImp0aSI6ImQxMWRlNjBlLTNkODEtNDljNC04N2YxLWVhOTNiYjgzYTQ0NCJ9.U5KN3qjlQ2cvDZ6AtNkoj8uXEjM7heBTO4sO2IL94fY
+
+{ "reservation": { "city": "San Luis", "date": "2023/03/31", "item": "BMW i4" } }
+
+###
